@@ -171,6 +171,7 @@ public class SideslipMenuFrameLayout extends FrameLayout {
 //        Log.i(TAG, "onDraw:" + childCount);
 //    }
 
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();

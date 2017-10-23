@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hero.zhaoq.listitemsideslipmenu.MainActivity">
+
+    <!--帧布局  样式：-->
+    <Button
+        android:id="@+id/SideslipMenuFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SideslipMenuFrameLayout"
+        />
+
+    <!--线性布局 样式：-->
+    <Button
+        android:id="@+id/SideslipMenuLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SideslipMenuLinearLayout"
+        />
+
+
+
+
+
+</LinearLayout>

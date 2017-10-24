@@ -116,7 +116,7 @@ public class SideslipMenuFrameLayout extends FrameLayout {
                 return dragLeftLength;
             }
             dragLeftLength = left;
-            Log.i("info",dragLeftLength + "----------");
+//            Log.i("info",dragLeftLength + "----------");
             return dragLeftLength;
         }
 

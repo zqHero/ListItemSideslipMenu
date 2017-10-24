@@ -116,7 +116,8 @@ public class SideslipMenuFrameLayout extends FrameLayout {
                 return dragLeftLength;
             }
             dragLeftLength = left;
-            return left;
+            Log.i("info",dragLeftLength + "----------");
+            return dragLeftLength;
         }
 
         //handle the vertical drag
@@ -125,25 +126,47 @@ public class SideslipMenuFrameLayout extends FrameLayout {
 //            return top;
 //        }
 
-        //pinter release   手指释放后  处理   判断：
+        float lastLeftLength;
+
+        //pointer release
         @Override
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
             super.onViewReleased(releasedChild, xvel, yvel);
-//            Log.i(TAG, xvel + "======================" + yvel);
-            //release touch event:
-            if (releasedChild == itemView) {
-                //if drag length > menu's width * 0.6     itemview  Restore the original state
-                //if drag length < menu's width * 0.4     itemview  scroll to rigth
-//                Log.i("info",Math.abs(dragLeftLength) + "========" + menuWidth);
-                if (Math.abs(dragLeftLength) > menuWidth * 0.6) {
-                    //恢复位置：
-                    viewDragHelper.settleCapturedViewAt(-menuWidth, orginPosition.y);
+//            Log.i(TAG, xvel + "======================" + yvel + "==========="
+//                    + dragLeftLength + "=========" + releasedChild.getLeft() + "====" + menuWidth * 0.6);
+            if (releasedChild == itemView){
+                //judge the  orientation :
+                if (dragLeftLength > lastLeftLength){
+//                    Log.i(TAG, "right");
+                    if (Math.abs(dragLeftLength) <= menuWidth*0.8){
+                        //恢復狀態
+                        itemView.setTag(false);
+                    }else{
+                        itemView.setTag(true);
+                    }
+                }else if (dragLeftLength < lastLeftLength){
+//                    Log.i(TAG, "left");
+                    if (Math.abs(dragLeftLength) <= menuWidth*0.2){
+                        //恢復狀態
+                        itemView.setTag(false);
+                    }else{
+                        itemView.setTag(true);
+                    }
+                }else if (dragLeftLength == lastLeftLength){
+//                    Log.i(TAG, "click");
+                    itemView.setTag(false);
+                }
+
+                boolean tag = itemView.getTag()==null?false: (boolean) itemView.getTag();
+                if (tag){
+                    viewDragHelper.settleCapturedViewAt(-menuWidth,orginPosition.y);
                     invalidate();
-                } else {
-                    //恢复位置：
-                    viewDragHelper.settleCapturedViewAt(orginPosition.x, orginPosition.y);
+                }else {
+                    viewDragHelper.settleCapturedViewAt(orginPosition.x,orginPosition.y);
                     invalidate();
                 }
+
+                lastLeftLength = dragLeftLength;
             }
         }
     };
@@ -170,7 +193,6 @@ public class SideslipMenuFrameLayout extends FrameLayout {
 //        int childCount = getChildCount();
 //        Log.i(TAG, "onDraw:" + childCount);
 //    }
-
 
     @Override
     protected void onDetachedFromWindow() {
